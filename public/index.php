@@ -3,8 +3,6 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
-dd(111);
-
 define('LARAVEL_START', microtime(true));
 
 // Determine if the application is in maintenance mode...
@@ -18,5 +16,7 @@ require __DIR__.'/../vendor/autoload.php';
 // Bootstrap Laravel and handle the request...
 /** @var Application $app */
 $app = require_once __DIR__.'/../bootstrap/app.php';
+
+dd(111);
 
 $app->handleRequest(Request::capture());
