@@ -3,6 +3,8 @@ services:
     name: laravel-app
     env: php
     plan: free
+    ports:
+      - 8000
     region: oregon  # або frankfurt, залежно від бажаної геолокації
     buildCommand: |
       composer install --no-dev --optimize-autoloader
