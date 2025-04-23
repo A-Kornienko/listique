@@ -35,6 +35,8 @@ RUN composer install --no-dev --optimize-autoloader
 # Кеш конфігів (можна змінити)
 RUN php artisan config:cache
 
+RUN touch storage/logs/laravel.log
+
 # Порт
 EXPOSE 8000
 
