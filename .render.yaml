@@ -2,11 +2,30 @@ services:
   - type: web
     name: laravel-app
     env: php
-    buildCommand: "composer install && php artisan config:cache"
-    startCommand: "php artisan serve --host 0.0.0.0 --port 10000"
     plan: free
+    region: oregon  # або frankfurt, залежно від бажаної геолокації
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      php artisan config:cache
+      php artisan route:cache
+      php artisan view:cache
+    startCommand: php artisan serve --host 0.0.0.0 --port 10000
     envVars:
       - key: APP_ENV
         value: production
       - key: APP_KEY
-        value: your-app-key-here
+        generateValue: true
+      - key: APP_DEBUG
+        value: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        value: dpg-d04gk0h5pdvs73cbhr8g-a
+      - key: DB_PORT
+        value: 5432
+      - key: DB_DATABASE
+        value: listique_db
+      - key: DB_USERNAME
+        value: listique_user
+      - key: DB_PASSWORD
+        value: listique_userUeVRunWyzcikAXnddf4DPXybtBGkLiGY
