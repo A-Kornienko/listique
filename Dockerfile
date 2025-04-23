@@ -25,6 +25,8 @@ COPY . .
 # Встановлюємо залежності Laravel
 RUN composer install --no-interaction --optimize-autoloader
 
+COPY .env.example .env
+
 # Копіюємо start script
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
