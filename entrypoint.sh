@@ -4,7 +4,7 @@
 php artisan key:generate
 
 # Кеш конфігів (опціонально)
-php artisan config:cache
+php artisan config:clear && php artisan config:cache
 
 # Запускаємо міграцію
 php artisan migrate --force
