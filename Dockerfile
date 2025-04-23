@@ -32,6 +32,8 @@ COPY . .
 # Встановлюємо залежності Laravel
 RUN composer install --no-dev --optimize-autoloader
 
+RUN php artisan key:generate
+
 # Кеш конфігів (можна змінити)
 RUN php artisan config:cache
 
