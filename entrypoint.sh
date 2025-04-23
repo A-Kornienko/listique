@@ -10,7 +10,7 @@ php artisan config:clear && php artisan config:cache
 php artisan migrate --force
 
 # Запускаємо сервер
-php artisan serve --host=0.0.0.0 --port=8000 &
+php artisan serve --host=0.0.0.0 --port=8000
 
 # Логи Laravel у реальному часі
-tail -f storage/logs/laravel.log
+#tail -f storage/logs/laravel.log

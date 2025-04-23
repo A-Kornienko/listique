@@ -31,9 +31,6 @@ COPY .env.example .env
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage
-
 # Відкриваємо порт
 EXPOSE 8000
 
