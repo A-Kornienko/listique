@@ -1,47 +1,37 @@
-FROM php:8.2-fpm
+FROM php:8.2-cli
 
 # Встановлюємо залежності
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip \
     git \
     curl \
-    libzip-dev \
+    unzip \
+    zip \
     libpq-dev \
-    libmcrypt-dev \
-    libsqlite3-dev \
-    sqlite3
-
-# Встановлення розширень PHP
-RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
+    libzip-dev \
+    libonig-dev \
+    libxml2-dev \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    && docker-php-ext-install pdo pdo_mysql zip
 
 # Встановлюємо Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Робоча директорія
+# Створюємо робочу директорію
 WORKDIR /var/www
 
-# Копіюємо проєкт
+# Копіюємо проект
 COPY . .
 
 # Встановлюємо залежності Laravel
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-interaction --optimize-autoloader
 
-COPY .env.example .env
+# Копіюємо start script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-RUN php artisan key:generate
-
-# Кеш конфігів (можна змінити)
-RUN php artisan config:cache
-
-RUN touch storage/logs/laravel.log
-
-# Порт
+# Відкриваємо порт
 EXPOSE 8000
 
-CMD php artisan migrate && php artisan serve --host=0.0.0.0 --port=8000 & tail -f storage/logs/laravel.log
+# Запускаємо скрипт
+ENTRYPOINT ["/entrypoint.sh"]
