@@ -39,8 +39,6 @@ RUN php artisan key:generate
 # Кеш конфігів (можна змінити)
 RUN php artisan config:cache
 
-RUN php artisan migrate
-
 RUN touch storage/logs/laravel.log
 
 # Порт
