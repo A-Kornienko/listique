@@ -35,9 +35,7 @@ RUN composer install --no-dev --optimize-autoloader
 # Кеш конфігів (можна змінити)
 RUN php artisan config:cache
 
-RUN touch storage/logs/laravel.log
-
 # Порт
 EXPOSE 8000
 
-CMD bash -c "php artisan migrate && php artisan config:cache && php artisan serve --host=0.0.0.0 --port=8000 && tail -f storage/logs/laravel.log"
+CMD bash -c "php artisan migrate && php artisan config:cache && php artisan serve --host=0.0.0.0 --port=8000"
